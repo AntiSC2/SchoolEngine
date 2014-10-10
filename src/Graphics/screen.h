@@ -5,6 +5,8 @@
 #endif // GLEW_BUILD
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
+#include <fstream>
+#include <string>
 #include <stdio.h>
 
 class Screen {

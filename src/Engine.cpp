@@ -28,3 +28,10 @@ void Engine::initScreen(int width, int height, const char* title) {
 void Engine::initResources(const char* filePath){
    ;
 }
+
+void initShaders(const char* fileVert, const char* fileFrag) {
+   shaders = new Shader[1];
+   for(int i = 0; i < 1; i++){
+      shaders[0]->initProgram(fileVert, fileFrag);
+   }
+}

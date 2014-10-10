@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "input.h"
 #include "Graphics/screen.h"
+#include "Graphics/shader.h"
 
 
 class Engine {
@@ -21,7 +22,7 @@ class Engine {
       Screen *screen;
       //Camera2D *camera;
       //Level *level;
-      //Shader *shaders;
+      Shader *shaders;
       //Resource Manager
       Input *input;
       Engine();
