@@ -2,7 +2,6 @@
 *.slo
 *.lo
 *.o
-*.obj
 
 # Compiled Dynamic libraries
 *.so
@@ -22,6 +21,11 @@
 *.exe
 *.out
 *.app
+
+# Project files
+*.cbp
+*.depend
+*.layout
 
 # =========================
 # Operating System Files
