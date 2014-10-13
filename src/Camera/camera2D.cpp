@@ -1,6 +1,6 @@
 #include "camera2D.h"
 
-Camera2D::Camera2D(int w, int h) : width(w), height(h), position(0, 0), scale(1.0f), cameraMatrix(1), orthoMatrix(1), needUpdate(0) {
+Camera2D::Camera2D(int w, int h) : width(w), height(h), scale(1.0f), needUpdate(0), position(0, 0), cameraMatrix(1), orthoMatrix(1) {
    ;
 }
 

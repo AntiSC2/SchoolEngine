@@ -34,11 +34,10 @@ void Engine::initScreen(int width, int height, const char* title) {
 void Engine::initResources(const char* filePath) {
    srand(time(nullptr));
    RM::TextureCache->createTexture("resources/textures/tex.png");
-   sprite = new Sprite[4];
-   sprite[0].initSprite(0, 0, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
-   sprite[1].initSprite(-128, 0, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
-   sprite[2].initSprite(128, 0, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
-   sprite[3].initSprite(-64, -64, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
+   sprite = new Sprite[1000];
+   for(int i = 0; i < 1000; i++) {
+       sprite[i].initSprite(rand() % 5000 - 2500, rand() % 5000 - 2500, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
+   }
 }
 
 void Engine::initShaders(const char* fileVert, const char* fileFrag) {

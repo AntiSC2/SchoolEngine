@@ -8,7 +8,7 @@ int main(int argc, char**argv) {
    g.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
    while(!g.input->window_closed()) {
       const float speed = 1.0f;
-      const float scale_speed = 0.01f;
+      const float scale_speed = 0.001f;
       g.screen->render();
       g.input->update();
       if(g.input->key_pressed(SDL_SCANCODE_Q)) {
@@ -36,10 +36,9 @@ int main(int argc, char**argv) {
       }
       g.camera->update();
       g.shaders[0]->setCameraMatrix(g.camera->getCameraMatrix());
-      g.sprite[0].render();
-      g.sprite[1].render();
-      g.sprite[2].render();
-      g.sprite[3].render();
+      for(int i = 0; i < 1000; i++) {
+         g.sprite[i].render();
+      }
       g.screen->update();
    }
    return 0;

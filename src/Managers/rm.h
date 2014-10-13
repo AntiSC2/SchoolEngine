@@ -3,9 +3,11 @@
 #include "texturemanager.h"
 
 class RM {
-public:
-   static TextureManager* TextureCache;
-private:
+   public:
+
+      static TextureManager* TextureCache;
+
+   private:
 };
 
 #endif // RM_H_INCLUDED

@@ -13,8 +13,6 @@ Sprite::~Sprite() {
 
 void Sprite::initSprite(int x, int y, int width, int height, GLubyte r, GLubyte b, GLubyte g, GLubyte a, const char* filePath) {
 
-
-
    if(vboID != 0) {
       glDeleteBuffers(1, &vboID);
    } else {

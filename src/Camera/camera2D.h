@@ -26,11 +26,12 @@ public:
 
 private:
    int width, height;
-   glm::vec2 position;
    GLfloat scale;
+   bool needUpdate;
+
+   glm::vec2 position;
    glm::mat4 cameraMatrix;
    glm::mat4 orthoMatrix;
-   bool needUpdate;
 };
 
 #endif // CAMERA2D_H_INCLUDED
