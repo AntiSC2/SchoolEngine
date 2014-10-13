@@ -6,21 +6,27 @@
 #include <GL/glew.h>
 #include <glm/common.hpp>
 
-struct Vertex{
+struct Vertex {
    GLint position[3];
 
    GLubyte color[4];
 
-   void setPosition(GLint x, GLint y, GLint z){
+   GLint UV[2];
+
+   void setPosition(GLint x, GLint y, GLint z) {
       position[0] = x;
       position[1] = y;
       position[2] = z;
    }
-   void setColor(GLubyte r, GLubyte g, GLubyte b, GLubyte a){
+   void setColor(GLubyte r, GLubyte g, GLubyte b, GLubyte a) {
       color[0] = r;
       color[1] = g;
       color[2] = b;
       color[3] = a;
+   }
+   void setUV(GLint x, GLint y) {
+      UV[0] = x;
+      UV[1] = y;
    }
 };
 

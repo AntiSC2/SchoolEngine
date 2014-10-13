@@ -38,7 +38,6 @@ void Screen::initGL() {
 
       printf("OpenGL Version %s\n", glGetString(GL_VERSION));
 
-      glEnable(GL_DEPTH_TEST);
       glEnable (GL_BLEND);
       glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -48,7 +47,7 @@ void Screen::initGL() {
 }
 
 void Screen::render() {
-   glClearDepth(10.0f);
+   glClearDepth(1.0f);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -56,7 +55,7 @@ void Screen::update() {
    GLenum err;
    while ((err = glGetError()) != GL_NO_ERROR)
    {
-      printf("Error while rendering! GLEW ERROR: %s\n", glGetString(err));
+      //printf("Error while rendering! GLEW ERROR: %s\n", glGetString(err));
    }
 
    SDL_GL_SwapWindow(window);

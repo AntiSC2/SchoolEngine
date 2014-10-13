@@ -1,18 +1,18 @@
 #include "shader.h"
 
-Shader::Shader() : programID(0), numAttributes(0), vertID(0), fragID(0){
+Shader::Shader() : programID(0), numAttributes(0), vertID(0), fragID(0) {
 
 }
 
-Shader::~Shader(){
-   if(programID != 0){
+Shader::~Shader() {
+   if(programID != 0) {
       glDeleteProgram(programID);
    }
 }
 
 Shader Shader::RENDERER;
 
-void Shader::initProgram(const char* vertPath, const char* fragPath){
+void Shader::initProgram(const char* vertPath, const char* fragPath) {
 
    programID = glCreateProgram();
    vertID = glCreateShader(GL_VERTEX_SHADER);
@@ -30,7 +30,7 @@ void Shader::initProgram(const char* vertPath, const char* fragPath){
    compileShader(fragPath, fragID);
 }
 
-void Shader::compileShader(const char* filePath, GLuint id){
+void Shader::compileShader(const char* filePath, GLuint id) {
 
    std::ifstream shaderFile(filePath);
    if (shaderFile.fail()) {
@@ -128,6 +128,11 @@ GLuint Shader::getUniformLocation(const char* uniformName) {
       //printf("Uniform %s was not found in shader!", uniformName);
    }
    return location;
+}
+
+void Shader::setCameraMatrix(glm::mat4 cameraMatrix) {
+   GLuint location = getUniformLocation("Projection");
+   glUniformMatrix4fv(location, 1, GL_FALSE, &(cameraMatrix[0][0]));
 }
 
 void Shader::use() {
