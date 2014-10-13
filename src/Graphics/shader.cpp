@@ -10,6 +10,8 @@ Shader::~Shader(){
    }
 }
 
+Shader Shader::RENDERER;
+
 void Shader::initProgram(const char* vertPath, const char* fragPath){
 
    programID = glCreateProgram();
@@ -75,6 +77,11 @@ void Shader::compileShader(const char* filePath, GLuint id){
       printf("%s\n", &(errorLog[0]));
       printf("Shader failed %s to compile \n", filePath);
    }
+}
+
+
+void Shader::addAttribute(const char* attributeName) {
+   glBindAttribLocation(programID, numAttributes++, attributeName);
 }
 
 void Shader::linkProgram() {

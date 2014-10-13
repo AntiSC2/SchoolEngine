@@ -2,10 +2,13 @@
 #define ENGINE_H_INCLUDED
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <cstdlib>
+#include <time.h>
 #include <stdio.h>
 #include "input.h"
 #include "Graphics/screen.h"
 #include "Graphics/shader.h"
+#include "Graphics/sprite.h"
 
 
 class Engine {
@@ -22,9 +25,12 @@ class Engine {
       Screen *screen;
       //Camera2D *camera;
       //Level *level;
-      Shader *shaders;
+      Shader **shaders;
       //Resource Manager
       Input *input;
+      /*TEMP*/
+      Sprite *sprite;
+      /*TEMP*/
       Engine();
       ~Engine();
 
