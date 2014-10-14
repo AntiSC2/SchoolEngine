@@ -23,18 +23,18 @@ void Sprite::initSprite(int x, int y, int width, int height, GLubyte r, GLubyte 
 
    Vertex vertices[6];
 
-   vertices[0].setPosition(x + width, y + height, 0);
+   vertices[0].setPosition(x + width, y + height);
    vertices[0].setUV(1, 0);
-   vertices[1].setPosition(x, y + height, 0);
+   vertices[1].setPosition(x, y + height);
    vertices[1].setUV(0, 0);
-   vertices[2].setPosition(x, y, 0);
+   vertices[2].setPosition(x, y);
    vertices[2].setUV(0, 1);
 
-   vertices[3].setPosition(x, y, 0);
+   vertices[3].setPosition(x, y);
    vertices[3].setUV(0, 1);
-   vertices[4].setPosition(x + width, y, 0);
+   vertices[4].setPosition(x + width, y);
    vertices[4].setUV(1, 1);
-   vertices[5].setPosition(x + width, y + height, 0);
+   vertices[5].setPosition(x + width, y + height);
    vertices[5].setUV(1, 0);
 
    for(int i = 0; i < 6; i++) {
