@@ -12,7 +12,7 @@ SpriteBatch::~SpriteBatch() {
 
 void SpriteBatch::init() {
    if(vaoID == 0) {
-      glGenVertexArrays(1, &vaoID)
+      glGenVertexArrays(1, &vaoID);
    }
    glBindVertexArray(vaoID);
    if(vboID == 0) {
@@ -33,10 +33,13 @@ void SpriteBatch::init() {
 
 void SpriteBatch::begin(GlyphSortType sortingType) {
    sortType = sortingType;
+   RenderBatches.clear();
+   Glyphs.clear();
 }
 
 void SpriteBatch::end() {
    sortGlyphs();
+   createRenderBatches();
 }
 
 void SpriteBatch::draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint texture, float depth, const Color& color) {
@@ -53,11 +56,11 @@ void SpriteBatch::draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuin
    temp->bottomRight.setColor(color.r, color.g, color.b, color.a);
 
    temp->topLeft.setPosition(destRect.x, destRect.y + destRect.w);
-   temp->topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
+   temp->topLeft.setUV(uvRect.x, uvRect.y - uvRect.w);
    temp->topLeft.setColor(color.r, color.g, color.b, color.a);
 
    temp->topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
-   temp->topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
+   temp->topRight.setUV(uvRect.x + uvRect.z, uvRect.y - uvRect.w);
    temp->topRight.setColor(color.r, color.g, color.b, color.a);
 
    Glyphs.push_back(temp);
@@ -66,6 +69,12 @@ void SpriteBatch::draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuin
 
 void SpriteBatch::renderDraw() {
 
+   glBindVertexArray(vaoID);
+
+   for(int i = 0; i < RenderBatches.size(); i++) {
+      glBindTexture(GL_TEXTURE, RenderBatches[i].texture);
+      glDrawArrays(GL_TRIANGLES, RenderBatches[i].offset, RenderBatches[i].numVertices);
+   }
 }
 
 void SpriteBatch::sortGlyphs() {
@@ -95,3 +104,43 @@ bool SpriteBatch::compareTexture(Glyph* a, Glyph* b) {
    return a->texture < b->texture;
 }
 
+void SpriteBatch::createRenderBatches() {
+   if(Glyphs.empty()) {
+      return;
+   }
+   std::vector<Vertex> vertices;
+   vertices.resize(Glyphs.size() * 6);
+   int offset = 0;
+   int cv = 0;
+
+   RenderBatches.emplace_back(0, 6, Glyphs[0]->texture);
+   vertices[cv++] = Glyphs[0]->topLeft;
+   vertices[cv++] = Glyphs[0]->bottomLeft;
+   vertices[cv++] = Glyphs[0]->bottomRight;
+   vertices[cv++] = Glyphs[0]->bottomRight;
+   vertices[cv++] = Glyphs[0]->topRight;
+   vertices[cv++] = Glyphs[0]->topLeft;
+   offset += 6;
+
+   for(int cg = 1; cg < Glyphs.size(); cg++) {
+      if(Glyphs[cg]->texture != Glyphs[cg - 1]->texture) {
+         RenderBatches.emplace_back(offset, 6, Glyphs[0]->texture);
+         offset += 6;
+      } else {
+         RenderBatches.back().numVertices += 6;
+      }
+      vertices[cv++] = Glyphs[cg]->topLeft;
+      vertices[cv++] = Glyphs[cg]->bottomLeft;
+      vertices[cv++] = Glyphs[cg]->bottomRight;
+      vertices[cv++] = Glyphs[cg]->bottomRight;
+      vertices[cv++] = Glyphs[cg]->topRight;
+      vertices[cv++] = Glyphs[cg]->topLeft;
+   }
+
+   glBindBuffer(GL_ARRAY_BUFFER, vboID);
+   glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);
+   glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), vertices.data());
+
+   glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+}

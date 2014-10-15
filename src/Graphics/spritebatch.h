@@ -24,6 +24,16 @@ enum class GlyphSortType {
    TEXTURE
 };
 
+class RenderBatch {
+   public:
+      RenderBatch(GLuint offSet, GLuint numvertices, GLuint teXture) : offset(offSet), numVertices(numvertices), texture(teXture) {
+         ;
+      }
+      GLuint offset;
+      GLuint numVertices;
+      GLuint texture;
+};
+
 class SpriteBatch {
    public:
       SpriteBatch();
@@ -37,6 +47,7 @@ class SpriteBatch {
 
    private:
       void sortGlyphs();
+      void createRenderBatches();
 
       static bool compareFrontToBack(Glyph* a, Glyph* b);
       static bool compareBackToFront(Glyph* a, Glyph* b);
@@ -44,7 +55,9 @@ class SpriteBatch {
 
       GlyphSortType sortType;
 
-      std::vector<Glyph> Glyphs;
+      std::vector<Glyph*> Glyphs;
+      std::vector<RenderBatch> RenderBatches;
+
       GLuint vboID;
       GLuint vaoID;
 };

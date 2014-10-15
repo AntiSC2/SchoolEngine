@@ -9,6 +9,7 @@ Engine::~Engine() {
    delete screen;
    delete RM::TextureCache;
    delete camera;
+   delete TheBatch;
    delete[] shaders;
    delete[] sprite;
    IMG_Quit();
@@ -33,10 +34,12 @@ void Engine::initScreen(int width, int height, const char* title) {
 
 void Engine::initResources(const char* filePath) {
    srand(time(nullptr));
+   TheBatch = new SpriteBatch;
+   TheBatch->init();
    RM::TextureCache->createTexture("resources/textures/tex.png");
    sprite = new Sprite[1000];
    for(int i = 0; i < 1000; i++) {
-       sprite[i].initSprite(rand() % 5000 - 2500, rand() % 5000 - 2500, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
+      sprite[i].initSprite(rand() % 5000 - 2500, rand() % 5000 - 2500, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
    }
 }
 

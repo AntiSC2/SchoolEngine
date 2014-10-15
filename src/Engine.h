@@ -9,34 +9,36 @@
 #include "Graphics/screen.h"
 #include "Graphics/shader.h"
 #include "Graphics/sprite.h"
+#include "Graphics/spritebatch.h"
 #include "Managers/rm.h"
 #include "Camera/camera2D.h"
 
 
 class Engine {
-public:
+   public:
 
-   void initSubSystems();
-   void initScreen(int width, int height, const char* title);
-   void initResources(const char* filePath);
-   void initShaders(const char* fileVert, const char* fileFrag);
-   void initLevels(const char* filePath);
-   void initCamera(int x, int y, int scale);
+      void initSubSystems();
+      void initScreen(int width, int height, const char* title);
+      void initResources(const char* filePath);
+      void initShaders(const char* fileVert, const char* fileFrag);
+      void initLevels(const char* filePath);
+      void initCamera(int x, int y, int scale);
 
 
-   Screen *screen;
-   Camera2D *camera;
-   //Level *level;
-   Shader **shaders;
-   //Resource Manager
-   Input *input;
-   /*TEMP*/
-   Sprite *sprite;
-   /*TEMP*/
-   Engine();
-   ~Engine();
+      Screen *screen;
+      Camera2D *camera;
+      SpriteBatch *TheBatch;
+      //Level *level;
+      Shader **shaders;
+      //Resource Manager
+      Input *input;
+      /*TEMP*/
+      Sprite *sprite;
+      /*TEMP*/
+      Engine();
+      ~Engine();
 
-private:
+   private:
 };
 
 #endif // ENGINE_H_INCLUDED

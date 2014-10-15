@@ -6,13 +6,13 @@
 #include "Graphics/texture.h"
 
 class TextureManager {
-public:
-   TextureManager();
-   ~TextureManager();
+   public:
+      TextureManager();
+      ~TextureManager();
 
-   Texture* createTexture(const char* filePath);
-private:
-   std::map<const char*, Texture*> textures;
+      Texture* createTexture(const char* filePath);
+   private:
+      std::map<const char*, Texture*> textures;
 };
 
 #endif // TEXTUREMANAGER_H_INCLUDED

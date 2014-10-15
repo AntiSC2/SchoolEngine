@@ -13,28 +13,28 @@
 #include <vector>
 
 class Shader {
-public:
-   Shader();
-   ~Shader();
+   public:
+      Shader();
+      ~Shader();
 
-   static Shader RENDERER;
+      static Shader RENDERER;
 
-   void initProgram(const char* vertPath, const char* fragPath);
-   void addAttribute(const char* attributeName);
-   void linkProgram();
+      void initProgram(const char* vertPath, const char* fragPath);
+      void addAttribute(const char* attributeName);
+      void linkProgram();
 
-   GLuint getUniformLocation(const char* uniformName);
-   void setCameraMatrix(glm::mat4 cameraMatrix);
+      GLuint getUniformLocation(const char* uniformName);
+      void setCameraMatrix(glm::mat4 cameraMatrix);
 
-   void use();
-   void unuse();
+      void use();
+      void unuse();
 
-private:
-   void compileShader(const char* filePath, GLuint id);
+   private:
+      void compileShader(const char* filePath, GLuint id);
 
-   GLuint numAttributes;
-   GLuint programID;
-   GLuint vertID, fragID;
+      GLuint numAttributes;
+      GLuint programID;
+      GLuint vertID, fragID;
 };
 
 #endif // SHADER_H_INCLUDED
