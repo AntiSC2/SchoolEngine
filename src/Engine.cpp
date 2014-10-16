@@ -55,3 +55,7 @@ void Engine::initShaders(const char* fileVert, const char* fileFrag) {
    }
    shaders[0]->use();
 }
+
+void Engine::initLevels(const char* filePath) {
+   ;
+}

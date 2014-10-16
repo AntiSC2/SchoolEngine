@@ -22,7 +22,6 @@ class Engine {
       void initResources(const char* filePath);
       void initShaders(const char* fileVert, const char* fileFrag);
       void initLevels(const char* filePath);
-      void initCamera(int x, int y, int scale);
 
 
       Screen *screen;
