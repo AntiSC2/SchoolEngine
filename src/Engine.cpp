@@ -37,9 +37,9 @@ void Engine::initResources(const char* filePath) {
    TheBatch = new SpriteBatch;
    TheBatch->init();
    RM::TextureCache->createTexture("resources/textures/tex.png");
-   sprite = new Sprite[1000];
-   for(int i = 0; i < 1000; i++) {
-      sprite[i].initSprite(rand() % 5000 - 2500, rand() % 5000 - 2500, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
+   sprite = new Sprite[100];
+   for(int i = 0; i < 100; i++) {
+      sprite[i].initSprite(rand() % 1000 - 500, rand() % 1000 - 500, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
    }
 }
 

@@ -3,6 +3,7 @@
 #include <map>
 #include <utility>
 #include <stdio.h>
+#include <string>
 #include "Graphics/texture.h"
 
 class TextureManager {
@@ -10,9 +11,9 @@ class TextureManager {
       TextureManager();
       ~TextureManager();
 
-      Texture* createTexture(const char* filePath);
+      Texture* createTexture(std::string);
    private:
-      std::map<const char*, Texture*> textures;
+      std::map<std::string, Texture*> textures;
 };
 
 #endif // TEXTUREMANAGER_H_INCLUDED

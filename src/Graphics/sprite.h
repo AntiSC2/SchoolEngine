@@ -4,7 +4,9 @@
 #define GLEW_BUILD
 #endif // GLEW_BUILD
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 #include <stdio.h>
+#include "spritebatch.h"
 #include "vertex.h"
 #include "texture.h"
 #include "Managers/rm.h"
@@ -13,15 +15,12 @@ class Sprite {
    public:
       Sprite();
       ~Sprite();
-      void initSprite(int x, int y, int width, int height, GLubyte r, GLubyte g, GLubyte b, GLubyte a, const char* filePath);
-      void render();
+      void initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r, GLubyte g, GLubyte b, GLubyte a, const char* filePath);
+      void render(SpriteBatch* batch);
    private:
-      GLint x;
-      GLint y;
-      GLint width;
-      GLint height;
-      GLubyte r,g,b,a;
-      GLuint vboID;
+      glm::vec4 destRect;
+      glm::vec4 uvRect;
+      Color color;
       Texture *tex;
 };
 

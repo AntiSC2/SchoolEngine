@@ -56,11 +56,11 @@ void SpriteBatch::draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuin
    temp->bottomRight.setColor(color.r, color.g, color.b, color.a);
 
    temp->topLeft.setPosition(destRect.x, destRect.y + destRect.w);
-   temp->topLeft.setUV(uvRect.x, uvRect.y - uvRect.w);
+   temp->topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
    temp->topLeft.setColor(color.r, color.g, color.b, color.a);
 
    temp->topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
-   temp->topRight.setUV(uvRect.x + uvRect.z, uvRect.y - uvRect.w);
+   temp->topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
    temp->topRight.setColor(color.r, color.g, color.b, color.a);
 
    Glyphs.push_back(temp);
