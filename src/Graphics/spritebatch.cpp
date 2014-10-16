@@ -34,6 +34,9 @@ void SpriteBatch::init() {
 void SpriteBatch::begin(GlyphSortType sortingType) {
    sortType = sortingType;
    RenderBatches.clear();
+   for (int i = 0; i < Glyphs.size(); i++) {
+      delete Glyphs[i];
+   }
    Glyphs.clear();
 }
 
