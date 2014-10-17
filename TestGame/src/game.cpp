@@ -77,6 +77,7 @@ void Game::update() {
       e.camera->setPosition(e.camera->getPosition() + glm::vec2(0.0f, -speed));
    }
    e.camera->update();
+   player->update();
 }
 
 void Game::render() {

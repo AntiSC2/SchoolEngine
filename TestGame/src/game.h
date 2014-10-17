@@ -1,6 +1,7 @@
 #ifndef GAME_H_INCLUDED
 #define GAME_H_INCLUDED
 #include <Engine.h>
+#include "Entities/player.h"
 
 class Game {
 public:
