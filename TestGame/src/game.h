@@ -5,6 +5,8 @@
 
 class Game {
 public:
+   Game();
+   ~Game();
    Engine e;
    void run();
 private:
@@ -14,6 +16,7 @@ private:
 
    void update();
    void render();
+   Player *player;
 };
 
 #endif // GAME_H_INCLUDED

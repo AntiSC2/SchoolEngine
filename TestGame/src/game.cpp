@@ -1,5 +1,13 @@
 #include "game.h"
 
+Game::Game() : player(nullptr) {
+   ;
+}
+
+Game::~Game() {
+   delete player;
+}
+
 void Game::run() {
    init();
    gameLoop();
@@ -11,7 +19,9 @@ void Game::init() {
    e.initScreen(1280, 720, "Test Game");
    e.initResources("resources/data/Game.data");
    e.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
-   e.initLevels("resources/data/Level.data");
+   e.initLevels("resources");
+
+   player = new Player;
 }
 
 void Game::gameLoop() {
@@ -19,7 +29,7 @@ void Game::gameLoop() {
    double currentTime = SDL_GetTicks();
    double newTime;
    double frameTime;
-   double accumelator;
+   double accumelator = 0.0;
 
    unsigned int updates = 0;
    unsigned int frames = 0;
@@ -50,8 +60,8 @@ void Game::gameLoop() {
 
 void Game::update() {
    e.input->update();
-   const float scale_speed = 0.1f;
-   const float speed = 10.0f;
+   const float scale_speed = 0.01f;
+   const float speed = 7.5f;
 
    if(e.input->key_pressed(SDL_SCANCODE_Q)) {
       e.camera->setScale(e.camera->getScale() + scale_speed);
@@ -82,17 +92,17 @@ void Game::update() {
 
 void Game::render() {
    e.screen->render();
+   e.shaders[0]->setCameraMatrix(e.camera->getCameraMatrix());
    e.TheBatch->begin();
 
    for(int i = 0; i < 100; i++) {
       e.sprite[i].render(e.TheBatch);
    }
+   player->render(e.TheBatch);
 
    e.TheBatch->end();
 
    e.TheBatch->renderDraw();
-
-   e.shaders[0]->setCameraMatrix(e.camera->getCameraMatrix());
    e.screen->update();
 }
 

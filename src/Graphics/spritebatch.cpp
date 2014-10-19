@@ -75,7 +75,7 @@ void SpriteBatch::renderDraw() {
    glBindVertexArray(vaoID);
 
    for(int i = 0; i < RenderBatches.size(); i++) {
-      glBindTexture(GL_TEXTURE, RenderBatches[i].texture);
+      glBindTexture(GL_TEXTURE_2D, RenderBatches[i].texture);
       glDrawArrays(GL_TRIANGLES, RenderBatches[i].offset, RenderBatches[i].numVertices);
    }
 }
@@ -127,7 +127,7 @@ void SpriteBatch::createRenderBatches() {
 
    for(int cg = 1; cg < Glyphs.size(); cg++) {
       if(Glyphs[cg]->texture != Glyphs[cg - 1]->texture) {
-         RenderBatches.emplace_back(offset, 6, Glyphs[0]->texture);
+         RenderBatches.emplace_back(offset, 6, Glyphs[cg]->texture);
          offset += 6;
       } else {
          RenderBatches.back().numVertices += 6;

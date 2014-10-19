@@ -5,8 +5,12 @@
 
 class Entity {
    public:
-      Entity();
-      virtual ~Entity();
+      Entity() {
+         ;
+      }
+      virtual ~Entity() {
+         ;
+      }
 
       virtual void render(SpriteBatch *batch) = 0;
       virtual void update() = 0;

@@ -1,8 +1,8 @@
 #include "player.h"
 
 Player::Player() {
-   /*sprite = new Sprite;
-   sprite->initSprite(position.x, position.y, 128, 128, 255, 255, 255, 255, "resources/textures/player.png");*/
+   sprite = new Sprite;
+   sprite->initSprite(position.x, position.y, 255, 255, 255, 255, 255, 255, "resources/textures/player.png");
 }
 
 Player::~Player() {

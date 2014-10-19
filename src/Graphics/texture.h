@@ -16,6 +16,8 @@ class Texture {
       void use();
       void unuse();
 
+      GLuint getID();
+
       static GLuint currentlyBound;
 
    private:

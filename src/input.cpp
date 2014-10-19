@@ -42,14 +42,14 @@ void Input::update() {
    }
    SDL_GetMouseState(&mx, &my);
 
-   if (key_pressed(SDL_SCANCODE_ESCAPE)) {
+   /*if (key_pressed(SDL_SCANCODE_ESCAPE)) {
       mg = false;
       SDL_ShowCursor(SDL_ENABLE);
    }
    if (!mg && Input::get_mouse_button() == SDL_BUTTON_LEFT) {
       mg = true;
       SDL_ShowCursor(SDL_DISABLE);
-   }
+   }*/
 }
 
 bool Input::key_pressed(SDL_Scancode key) {

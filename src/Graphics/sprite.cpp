@@ -29,6 +29,5 @@ void Sprite::initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r
 }
 
 void Sprite::render(SpriteBatch* batch) {
-   tex->use();
-   batch->draw(destRect, uvRect, Texture::currentlyBound, 0, color);
+   batch->draw(destRect, uvRect, tex->getID(), 0, color);
 }
