@@ -23,6 +23,8 @@ class Camera2D {
       GLfloat getScale();
       glm::vec2 getPosition();
       glm::mat4 getCameraMatrix();
+      int getWidth();
+      int getHeight();
 
    private:
       int width, height;

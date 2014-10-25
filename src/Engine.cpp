@@ -11,7 +11,6 @@ Engine::~Engine() {
    delete camera;
    delete TheBatch;
    delete[] shaders;
-   delete[] sprite;
    IMG_Quit();
    SDL_Quit();
 }
@@ -38,10 +37,6 @@ void Engine::initResources(const char* filePath) {
    TheBatch->init();
    RM::TextureCache->createTexture("resources/textures/player.png");
    RM::TextureCache->createTexture("resources/textures/tex.png");
-   sprite = new Sprite[100];
-   for(int i = 0; i < 100; i++) {
-      sprite[i].initSprite(rand() % 1000 - 500, rand() % 1000 - 500, 128, 128, 255, 255, 255, 255, "resources/textures/tex.png");
-   }
 }
 
 void Engine::initShaders(const char* fileVert, const char* fileFrag) {

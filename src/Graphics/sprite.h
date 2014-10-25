@@ -17,6 +17,7 @@ class Sprite {
       ~Sprite();
       void initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r, GLubyte g, GLubyte b, GLubyte a, const char* filePath);
       void render(SpriteBatch* batch);
+      void updatePosition(int x, int y);
    private:
       glm::vec4 destRect;
       glm::vec4 uvRect;

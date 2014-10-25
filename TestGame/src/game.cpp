@@ -6,6 +6,9 @@ Game::Game() : player(nullptr) {
 
 Game::~Game() {
    delete player;
+   for(int i = 0; i < bullets.size(); i++) {
+      delete bullets[i];
+   }
 }
 
 void Game::run() {
@@ -19,7 +22,7 @@ void Game::init() {
    e.initScreen(1280, 720, "Test Game");
    e.initResources("resources/data/Game.data");
    e.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
-   e.initLevels("resources");
+   e.initLevels("resources/data/Level.data");
 
    player = new Player;
 }
@@ -35,7 +38,7 @@ void Game::gameLoop() {
    unsigned int frames = 0;
    unsigned int seconds = 0;
 
-   while(!e.input->window_closed()) {
+   while(!e.input->windowClosed()) {
       newTime = SDL_GetTicks();
       frameTime = newTime - currentTime;
       currentTime = newTime;
@@ -63,31 +66,46 @@ void Game::update() {
    const float scale_speed = 0.01f;
    const float speed = 7.5f;
 
-   if(e.input->key_pressed(SDL_SCANCODE_Q)) {
+   if(e.input->keyPressed(SDL_SCANCODE_Q)) {
       e.camera->setScale(e.camera->getScale() + scale_speed);
    }
 
-   if(e.input->key_pressed(SDL_SCANCODE_E)) {
+   if(e.input->keyPressed(SDL_SCANCODE_E)) {
       e.camera->setScale(e.camera->getScale() - scale_speed);
    }
 
-   if(e.input->key_pressed(SDL_SCANCODE_A)) {
+   if(e.input->keyPressed(SDL_SCANCODE_A)) {
       e.camera->setPosition(e.camera->getPosition() + glm::vec2(-speed, 0.0f));
    }
 
-   if(e.input->key_pressed(SDL_SCANCODE_D)) {
+   if(e.input->keyPressed(SDL_SCANCODE_D)) {
       e.camera->setPosition(e.camera->getPosition() + glm::vec2(speed, 0.0f));
    }
 
-   if(e.input->key_pressed(SDL_SCANCODE_W)) {
+   if(e.input->keyPressed(SDL_SCANCODE_W)) {
       e.camera->setPosition(e.camera->getPosition() + glm::vec2(0.0f, speed));
    }
 
-   if(e.input->key_pressed(SDL_SCANCODE_S)) {
+   if(e.input->keyPressed(SDL_SCANCODE_S)) {
       e.camera->setPosition(e.camera->getPosition() + glm::vec2(0.0f, -speed));
    }
    e.camera->update();
+   for(int i = 0; i < bullets.size();) {
+      bullets[i]->update();
+      if(bullets[i]->lifeTime == 0) {
+         delete bullets[i];
+         bullets[i] = bullets.back();
+         bullets.pop_back();
+      } else {
+         i++;
+      }
+   }
    player->update();
+   if(player->createBullet) {
+      player->createBullet = false;
+      Bullet* temp = new Bullet(player->getPosition().x + 128, player->getPosition().y + 128, Input::getMouseX(e.camera), Input::getMouseY(e.camera), 240);
+      bullets.push_back(temp);
+   }
 }
 
 void Game::render() {
@@ -95,8 +113,8 @@ void Game::render() {
    e.shaders[0]->setCameraMatrix(e.camera->getCameraMatrix());
    e.TheBatch->begin();
 
-   for(int i = 0; i < 100; i++) {
-      e.sprite[i].render(e.TheBatch);
+   for(int i = 0; i < bullets.size(); i++) {
+      bullets[i]->render(e.TheBatch);
    }
    player->render(e.TheBatch);
 

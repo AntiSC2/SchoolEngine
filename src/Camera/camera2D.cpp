@@ -48,3 +48,11 @@ GLfloat Camera2D::getScale() {
 glm::mat4 Camera2D::getCameraMatrix() {
    return cameraMatrix;
 }
+
+int Camera2D::getWidth() {
+   return width;
+}
+
+int Camera2D::getHeight() {
+   return height;
+}

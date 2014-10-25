@@ -31,3 +31,8 @@ void Sprite::initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r
 void Sprite::render(SpriteBatch* batch) {
    batch->draw(destRect, uvRect, tex->getID(), 0, color);
 }
+
+void Sprite::updatePosition(int x, int y) {
+   destRect.x = x;
+   destRect.y = y;
+}

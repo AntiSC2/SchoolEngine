@@ -2,6 +2,8 @@
 #define GAME_H_INCLUDED
 #include <Engine.h>
 #include "Entities/player.h"
+#include "Entities/bullet.h"
+#include <vector>
 
 class Game {
 public:
@@ -17,6 +19,7 @@ private:
    void update();
    void render();
    Player *player;
+   std::vector<Bullet*> bullets;
 };
 
 #endif // GAME_H_INCLUDED

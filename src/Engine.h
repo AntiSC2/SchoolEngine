@@ -29,10 +29,8 @@ class Engine {
       SpriteBatch *TheBatch;
       //Level *level;
       Shader **shaders;
-      //Resource Manager
       Input *input;
       /*TEMP*/
-      Sprite *sprite;
       /*TEMP*/
       Engine();
       ~Engine();
