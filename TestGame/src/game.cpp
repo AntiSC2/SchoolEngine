@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game() : player(nullptr) {
+Game::Game() : player(nullptr), countBullets(1) {
    ;
 }
 
@@ -95,6 +95,7 @@ void Game::update() {
       if(bullets[i].lifeTime == 0) {
          bullets[i] = bullets.back();
          bullets.pop_back();
+         countBullets--;
       } else {
          i++;
       }
@@ -102,6 +103,7 @@ void Game::update() {
    player->update();
    if(player->createBullet) {
       player->createBullet = false;
+      countBullets++;
       bullets.emplace_back(player->getPosition().x, player->getPosition().y, Input::getMouseX(e.camera), Input::getMouseY(e.camera), 240);
    }
 }

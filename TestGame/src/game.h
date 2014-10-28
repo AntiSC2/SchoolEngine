@@ -21,6 +21,7 @@ class Game {
       void render();
       Player *player;
       std::vector<Bullet> bullets;
+      unsigned int countBullets;
 };
 
 #endif // GAME_H_INCLUDED

@@ -8,7 +8,10 @@
 class Bullet : public Entity {
    public:
       Bullet(int x = 0, int y = 0, int dirX = 0, int dirY = 0, int lifeTime = 240);
+      Bullet(const Bullet& a);
       ~Bullet();
+
+      Bullet& operator=(const Bullet& a);
 
       void render(SpriteBatch *batch);
       void update();

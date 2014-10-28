@@ -20,8 +20,33 @@ Bullet::Bullet(int x, int y, int dirX, int dirY, int lifeTime) {
    speed = 6.0f;
 }
 
+Bullet::Bullet(const Bullet& a) {
+   this->position = a.position;
+   this->bounding_box = a.bounding_box;
+   this->direction = a.direction;
+   this->lifeTime = a.lifeTime;
+   this->sprite = new Sprite;
+   this->sprite->initSprite(position.x - 16, position.y - 16, 32, 32, 255, 255, 255, 255, "resources/textures/bullet.png");
+   direction = glm::normalize(direction);
+   speed = 6.0f;
+}
+
 Bullet::~Bullet() {
    delete sprite;
+}
+
+Bullet& Bullet::operator=(const Bullet& a) {
+   this->position = a.position;
+   this->bounding_box = a.bounding_box;
+   this->direction = a.direction;
+   this->lifeTime = a.lifeTime;
+   if(this->sprite != nullptr)
+      delete this->sprite;
+   this->sprite = new Sprite;
+   this->sprite->initSprite(position.x - 16, position.y - 16, 32, 32, 255, 255, 255, 255, "resources/textures/bullet.png");
+   direction = glm::normalize(direction);
+   speed = 6.0f;
+   return *this;
 }
 
 void Bullet::render(SpriteBatch *batch) {
