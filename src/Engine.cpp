@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-Engine::Engine() {
+Engine::Engine() : screen(nullptr), camera(nullptr), shaders(nullptr), TheBatch(nullptr), input(nullptr) {
    ;
 }
 
@@ -27,19 +27,22 @@ void Engine::initSubSystems() {
 
 void Engine::initScreen(int width, int height, const char* title) {
    screen = new Screen(width, height, title);
-   camera = new Camera2D(1280, 720);
-   camera->init(1280, 720);
+   camera = new Camera2D(width, height);
+   camera->init(width, height);
 }
 
 void Engine::initResources(const char* filePath) {
    srand(time(nullptr));
    TheBatch = new SpriteBatch;
    TheBatch->init();
-   RM::TextureCache->createTexture("resources/textures/player.png");
-   RM::TextureCache->createTexture("resources/textures/tex.png");
+   RM::init(filePath);
 }
 
 void Engine::initShaders(const char* fileVert, const char* fileFrag) {
+   if(shaders != nullptr) {
+      delete[] shaders;
+      shaders = nullptr;
+   }
    shaders = new Shader*[1];
    shaders[0] = &Shader::RENDERER;
    for(int i = 0; i < 1; i++) {

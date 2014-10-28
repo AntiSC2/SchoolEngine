@@ -6,9 +6,9 @@ Game::Game() : player(nullptr) {
 
 Game::~Game() {
    delete player;
-   for(int i = 0; i < bullets.size(); i++) {
+   /*for(int i = 0; i < bullets.size(); i++) {
       delete bullets[i];
-   }
+   }*/
 }
 
 void Game::run() {
@@ -91,9 +91,8 @@ void Game::update() {
    }
    e.camera->update();
    for(int i = 0; i < bullets.size();) {
-      bullets[i]->update();
-      if(bullets[i]->lifeTime == 0) {
-         delete bullets[i];
+      bullets[i].update();
+      if(bullets[i].lifeTime == 0) {
          bullets[i] = bullets.back();
          bullets.pop_back();
       } else {
@@ -103,8 +102,7 @@ void Game::update() {
    player->update();
    if(player->createBullet) {
       player->createBullet = false;
-      Bullet* temp = new Bullet(player->getPosition().x + 128, player->getPosition().y + 128, Input::getMouseX(e.camera), Input::getMouseY(e.camera), 240);
-      bullets.push_back(temp);
+      bullets.emplace_back(player->getPosition().x, player->getPosition().y, Input::getMouseX(e.camera), Input::getMouseY(e.camera), 240);
    }
 }
 
@@ -114,7 +112,7 @@ void Game::render() {
    e.TheBatch->begin();
 
    for(int i = 0; i < bullets.size(); i++) {
-      bullets[i]->render(e.TheBatch);
+      bullets[i].render(e.TheBatch);
    }
    player->render(e.TheBatch);
 

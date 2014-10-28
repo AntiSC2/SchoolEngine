@@ -22,7 +22,7 @@ Texture* TextureManager::createTexture(std::string filePath) {
       it = textures.find(filePath);
       return it->second;
    } else {
-      printf("Loading cached texture: %s\n", filePath.c_str());
+      //printf("Loading cached texture: %s\n", filePath.c_str());
       return it->second;
    }
    return nullptr;

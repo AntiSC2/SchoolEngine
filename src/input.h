@@ -11,8 +11,10 @@ class Input {
    private:
       SDL_Event event;
       static bool keys[65536];
+
       static std::vector<SDL_Scancode> pressedKeys;
       static std::vector<unsigned int> clickedButtons;
+
       bool quit = false;
       static int mx, my, mb;
       static bool mg;

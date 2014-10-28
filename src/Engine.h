@@ -26,9 +26,8 @@ class Engine {
 
       Screen *screen;
       Camera2D *camera;
-      SpriteBatch *TheBatch;
-      //Level *level;
       Shader **shaders;
+      SpriteBatch *TheBatch;
       Input *input;
       /*TEMP*/
       /*TEMP*/
