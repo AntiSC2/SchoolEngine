@@ -17,8 +17,6 @@ class Shader {
       Shader();
       ~Shader();
 
-      static Shader RENDERER;
-
       void initProgram(const char* vertPath, const char* fragPath);
       void addAttribute(const char* attributeName);
       void linkProgram();

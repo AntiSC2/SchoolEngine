@@ -8,7 +8,7 @@ Sprite::~Sprite() {
    tex = nullptr;
 }
 
-void Sprite::initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r, GLubyte b, GLubyte g, GLubyte a, const char* filePath) {
+void Sprite::initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r, GLubyte g, GLubyte b, GLubyte a, const char* filePath) {
 
    tex = RM::TextureCache->createTexture(filePath);
 
@@ -29,7 +29,7 @@ void Sprite::initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r
 }
 
 void Sprite::render(SpriteBatch* batch) {
-   batch->draw(destRect, uvRect, tex->getID(), 0, color);
+ batch->draw(destRect, uvRect, tex->getID(), 0, color);
 }
 
 void Sprite::updatePosition(int x, int y) {

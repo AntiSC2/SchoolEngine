@@ -10,7 +10,6 @@ void RM::init(const char* filePath) {
       int length = fin.tellg();
       fin.seekg(0, fin.beg);
       while(c < length) {
-         printf("WHAT");
          std::getline(fin, fileLine);
          if(fileLine == "#Textures") {
             textures = true;
@@ -32,7 +31,7 @@ void RM::init(const char* filePath) {
             levels = false;
             sound = false;
             music = true;
-         } else if(textures == true){
+         } else if(textures == true) {
             TextureCache->createTexture(fileLine);
          }
          c += fileLine.size();

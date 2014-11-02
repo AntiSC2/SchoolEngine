@@ -10,8 +10,6 @@ Shader::~Shader() {
    }
 }
 
-Shader Shader::RENDERER;
-
 void Shader::initProgram(const char* vertPath, const char* fragPath) {
 
    programID = glCreateProgram();

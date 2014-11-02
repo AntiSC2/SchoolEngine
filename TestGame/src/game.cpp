@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game() : player(nullptr), countBullets(1) {
+Game::Game() : player(nullptr), countBullets(0) {
    ;
 }
 
@@ -88,6 +88,9 @@ void Game::update() {
 
    if(e.input->keyPressed(SDL_SCANCODE_S)) {
       e.camera->setPosition(e.camera->getPosition() + glm::vec2(0.0f, -speed));
+   }
+   if(e.input->keyTyped(SDL_SCANCODE_R)) {
+      e.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
    }
    e.camera->update();
    for(int i = 0; i < bullets.size();) {

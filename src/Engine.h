@@ -21,7 +21,6 @@ class Engine {
       void initScreen(int width, int height, const char* title);
       void initResources(const char* filePath);
       void initShaders(const char* fileVert, const char* fileFrag);
-      void initLevels(const char* filePath);
 
 
       Screen *screen;
@@ -30,6 +29,7 @@ class Engine {
       SpriteBatch *TheBatch;
       Input *input;
       /*TEMP*/
+      unsigned int shaderCount;
       /*TEMP*/
       Engine();
       ~Engine();

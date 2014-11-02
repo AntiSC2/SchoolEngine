@@ -8,6 +8,12 @@ SpriteBatch::~SpriteBatch() {
    for(int i = 0; i < Glyphs.size(); i++) {
       delete Glyphs[i];
    }
+   if(vaoID != 0) {
+      glDeleteVertexArrays(1, &vaoID);
+   }
+   if(vboID != 0) {
+      glDeleteBuffers(1, &vboID);
+   }
 }
 
 void SpriteBatch::init() {
@@ -92,7 +98,6 @@ void SpriteBatch::sortGlyphs() {
          std::stable_sort(Glyphs.begin(), Glyphs.end(), compareTexture);
          break;
    }
-
 }
 
 bool SpriteBatch::compareFrontToBack(Glyph* a, Glyph* b) {
@@ -116,7 +121,8 @@ void SpriteBatch::createRenderBatches() {
    int offset = 0;
    int cv = 0;
 
-   RenderBatches.emplace_back(0, 6, Glyphs[0]->texture);
+   //Add the first batch
+   RenderBatches.emplace_back(offset, 6, Glyphs[0]->texture);
    vertices[cv++] = Glyphs[0]->topLeft;
    vertices[cv++] = Glyphs[0]->bottomLeft;
    vertices[cv++] = Glyphs[0]->bottomRight;
@@ -125,11 +131,15 @@ void SpriteBatch::createRenderBatches() {
    vertices[cv++] = Glyphs[0]->topLeft;
    offset += 6;
 
-   for(int cg = 1; cg < Glyphs.size(); cg++) {
-      if(Glyphs[cg]->texture != Glyphs[cg - 1]->texture) {
+   //Add all the rest of the glyphs
+   for (int cg = 1; cg < Glyphs.size(); cg++) {
+
+      // Check if this glyph can be part of the current batch
+      if (Glyphs[cg]->texture != Glyphs[cg - 1]->texture) {
+         // Make a new batch
          RenderBatches.emplace_back(offset, 6, Glyphs[cg]->texture);
-         offset += 6;
       } else {
+         // If its part of the current batch, just increase numVertices
          RenderBatches.back().numVertices += 6;
       }
       vertices[cv++] = Glyphs[cg]->topLeft;
@@ -138,7 +148,9 @@ void SpriteBatch::createRenderBatches() {
       vertices[cv++] = Glyphs[cg]->bottomRight;
       vertices[cv++] = Glyphs[cg]->topRight;
       vertices[cv++] = Glyphs[cg]->topLeft;
+      offset += 6;
    }
+
 
    glBindBuffer(GL_ARRAY_BUFFER, vboID);
    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), nullptr, GL_DYNAMIC_DRAW);

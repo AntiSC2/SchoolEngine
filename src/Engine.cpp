@@ -10,6 +10,9 @@ Engine::~Engine() {
    delete RM::TextureCache;
    delete camera;
    delete TheBatch;
+   for(int i = 0; i < shaderCount; i++) {
+      delete shaders[i];
+   }
    delete[] shaders;
    IMG_Quit();
    SDL_Quit();
@@ -39,12 +42,16 @@ void Engine::initResources(const char* filePath) {
 }
 
 void Engine::initShaders(const char* fileVert, const char* fileFrag) {
+   shaderCount = 1;
    if(shaders != nullptr) {
+      for(int i = 0; i < shaderCount; i++) {
+         delete shaders[i];
+      }
       delete[] shaders;
       shaders = nullptr;
    }
    shaders = new Shader*[1];
-   shaders[0] = &Shader::RENDERER;
+   shaders[0] = new Shader;
    for(int i = 0; i < 1; i++) {
       shaders[i]->initProgram(fileVert, fileFrag);
       shaders[i]->addAttribute("position");
@@ -53,8 +60,4 @@ void Engine::initShaders(const char* fileVert, const char* fileFrag) {
       shaders[i]->linkProgram();
    }
    shaders[0]->use();
-}
-
-void Engine::initLevels(const char* filePath) {
-   ;
 }

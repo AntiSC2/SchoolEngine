@@ -20,6 +20,7 @@ Texture* TextureManager::createTexture(std::string filePath) {
       textures.insert(std::pair<std::string, Texture*>(filePath, temp));
       printf("Loading texture: %s\n", filePath.c_str());
       it = textures.find(filePath);
+      temp = nullptr;
       return it->second;
    } else {
       //printf("Loading cached texture: %s\n", filePath.c_str());
