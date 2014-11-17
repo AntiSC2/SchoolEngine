@@ -46,7 +46,7 @@ void Game::loadLevel(const char* filePath, Level& a) {
          y++;
       }
       a.setHeight(y);
-      a.finishLevel();
+      a.finishLevel(e.camera);
    }
 }
 
@@ -76,7 +76,7 @@ void Game::gameLoop() {
       drawGame();
       frames++;
       if(SDL_GetTicks() - seconds > 1000) {
-         printf("Updates: %d\nFrames: %d\n", updates, frames);
+         printf("Updates: %d\nFrames: %d\nMouse X: %d\nMouse Y: %d\n", updates, frames, Input::getMouseX(e.camera), Input::getMouseY(e.camera));
          updates = 0;
          frames = 0;
          seconds = SDL_GetTicks();
@@ -97,8 +97,8 @@ void Game::drawGame() {
    e.shaders[0]->setCameraMatrix(e.camera->getCameraMatrix());
    e.TheBatch->begin();
    player->render(e.TheBatch);
+   level.render(e.TheBatch);
    e.TheBatch->end();
-   level.render();
    e.TheBatch->renderDraw();
    e.screen->update();
 }

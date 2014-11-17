@@ -37,13 +37,17 @@ void Player::update() {
    }
    a->checkWalls(destRect);
 
-   sprite.updatePosition(destRect.x, destRect.y);
+   sprite.updatePosition(destRect.x, destRect.y + 16);
    glm::vec2 temp;
    temp.x = destRect.x + 24;
-   temp.y = destRect.y + 24;
+   temp.y = destRect.y + 40;
    Game::e.camera->setPosition(temp);
 }
 
 void Player::render(SpriteBatch* batch) {
    sprite.render(batch);
+}
+
+int Player::getID() {
+   return 1;
 }
