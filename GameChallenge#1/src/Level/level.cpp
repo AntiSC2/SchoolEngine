@@ -201,7 +201,7 @@ void Level::update() {
          entities[i]->update();
          if(entities[i]->getID() == 3) {
             if(entities[i]->checkEntityCollision(entities[i]->targetP)) {
-               for(int a = 0; a < entities.size(); a++) {
+               for(unsigned int a = 0; a < entities.size(); a++) {
                   if(entities[i]->targetP == entities[a]) {
                      delete entities[a];
                      entities[a] = entities.back();

@@ -22,7 +22,9 @@ public:
    }
 
    bool checkEntityCollision(Entity* a) {
-      float RADIUS1 = a->getPosition().w / 2;
+      if(a == nullptr)
+         return false;
+      float RADIUS1 = a->destRect.w / 2;
       float RADIUS2 = destRect.w / 2;
       if(std::sqrt((a->destRect.x - destRect.x) * (a->destRect.x - destRect.x) + (a->destRect.y - destRect.y) * (a->destRect.y - destRect.y)) < (RADIUS1 - RADIUS2))
          return true;
