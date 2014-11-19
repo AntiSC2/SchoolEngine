@@ -26,8 +26,10 @@ public:
          return false;
       float RADIUS1 = a->destRect.w / 2;
       float RADIUS2 = destRect.w / 2;
-      if(std::sqrt((a->destRect.x - destRect.x) * (a->destRect.x - destRect.x) + (a->destRect.y - destRect.y) * (a->destRect.y - destRect.y)) < (RADIUS1 - RADIUS2))
+      if(std::sqrt(std::pow(destRect.x - a->destRect.x, 2) + std::pow(destRect.y - a->destRect.y, 2)) < (RADIUS1 + RADIUS2)) {
+         float depth = std::sqrt(std::pow(destRect.x - a->destRect.x, 2) + std::pow(destRect.y - a->destRect.y, 2));
          return true;
+      }
       return false;
    }
 

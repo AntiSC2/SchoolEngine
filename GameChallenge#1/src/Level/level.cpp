@@ -203,9 +203,12 @@ void Level::update() {
             if(entities[i]->checkEntityCollision(entities[i]->targetP)) {
                for(unsigned int a = 0; a < entities.size(); a++) {
                   if(entities[i]->targetP == entities[a]) {
+                     Entity* newZombie = new Zombie(entities[a]->getPosition().x, entities[a]->getPosition().y, *this);
                      delete entities[a];
                      entities[a] = entities.back();
                      entities.pop_back();
+                     entities.push_back(newZombie);
+                     newZombie = nullptr;
                      break;
                   }
                }
