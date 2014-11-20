@@ -5,6 +5,7 @@ Zombie::Zombie(int x, int y, Level& a) {
    destRect.y = y;
    destRect.z = 48;
    destRect.w = 48;
+   targetE = nullptr;
 
    target.x = 0.0f;
    target.y = 0.0f;
@@ -21,6 +22,7 @@ Zombie::~Zombie() {
 }
 
 void Zombie::update() {
+   targetE = a->getEntity(destRect);
    targetP = a->getClosestHuman(destRect);
    if(targetP != nullptr) {
       target = glm::vec2(targetP->getPosition().x, targetP->getPosition().y);
@@ -28,8 +30,11 @@ void Zombie::update() {
       target -= glm::vec2(destRect.x, destRect.y);
       target = glm::normalize(target);
    }
-
    destRect += glm::vec4(target.x, target.y, 0, 0) * speed;
+   if(targetE != nullptr) {
+      if(targetE->getID() == 3)
+         checkEntityCollision(targetE);
+   }
    a->checkWalls(destRect);
    sprite.updatePosition(destRect.x, destRect.y + 16);
 }

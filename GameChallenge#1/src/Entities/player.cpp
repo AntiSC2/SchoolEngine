@@ -6,6 +6,7 @@ Player::Player(Level& a) : speed(4.0f) {
    Game::e.camera->setPosition(glm::vec2(destRect.x, destRect.y));
    destRect.z = 48;
    destRect.w = 48;
+   targetE = nullptr;
 
    sprite.initSprite(destRect.x, destRect.y, destRect.z, destRect.w, 50, 50, 255, 255, "resources/textures/circle.png");
    this->a = &a;
@@ -22,7 +23,7 @@ void Player::init(int x, int y) {
 }
 
 void Player::update() {
-
+   targetE = a->getEntity(destRect);
    if(Input::keyPressed(SDL_SCANCODE_W)) {
       destRect.y += speed;
    }

@@ -14,23 +14,23 @@
 class Player;
 
 class Game {
-public:
-   Game();
-   ~Game();
+   public:
+      Game();
+      ~Game();
 
-   void run();
+      void run();
 
-   static Engine e;
+      static Engine e;
 
-private:
-   void init();
-   void loadLevel(const char* filePath, Level& a);
-   void gameLoop();
-   void update();
-   void drawGame();
+   private:
+      void init();
+      void loadLevel(const char* filePath, Level& a);
+      void gameLoop();
+      void update();
+      void drawGame();
 
-   Player* player;
-   Level level;
+      Player* player;
+      Level level;
 };
 
 #endif // GAME_H_INCLUDED

@@ -6,19 +6,19 @@
 class Level;
 
 class Player : public Entity {
-public:
-   Player(Level& a);
-   ~Player();
+   public:
+      Player(Level& a);
+      ~Player();
 
-   void init(int x, int y);
+      void init(int x, int y);
 
-   void update();
-   void render(SpriteBatch* batch);
-   int getID();
-private:
-   const float speed;
-   Sprite sprite;
-   Level *a;
+      void update();
+      void render(SpriteBatch* batch);
+      int getID();
+   private:
+      const float speed;
+      Sprite sprite;
+      Level *a;
 };
 
 #endif // PLAYER_H_INCLUDED

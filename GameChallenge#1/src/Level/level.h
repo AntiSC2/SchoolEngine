@@ -15,32 +15,32 @@
 #include <cmath>
 
 class Level {
-public:
-   Level();
-   ~Level();
+   public:
+      Level();
+      ~Level();
 
-   void setWidth(unsigned int x);
-   void setHeight(unsigned int y);
-   void setHumans(unsigned int humans);
+      void setWidth(unsigned int x);
+      void setHeight(unsigned int y);
+      void setHumans(unsigned int humans);
 
-   unsigned int getWidth();
-   unsigned int getHeight();
+      unsigned int getWidth();
+      unsigned int getHeight();
 
-   bool checkWalls(glm::vec4& position);
-   Entity* getClosestHuman(glm::vec4& destRect);
-   const glm::vec2& getZombie(glm::vec4& destRect, int WATCH_RADIUS);
+      bool checkWalls(glm::vec4& position);
+      Entity* getClosestHuman(glm::vec4& destRect);
+      Entity* getEntity(glm::vec4& destRect);
 
-   void addBlocks(std::string& fileLine);
-   void finishLevel(Camera2D *camera);
-   void update();
-   void render(SpriteBatch *batch);
+      void addBlocks(std::string& fileLine);
+      void finishLevel(Camera2D *camera);
+      void update();
+      void render(SpriteBatch *batch);
 
-private:
-   unsigned int width, height, humans, TILE_SIZE;
-   SpriteBatch levelBatch;
-   Camera2D *levelCamera;
-   std::vector<std::string> walls;
-   std::vector<Entity*> entities;
+   private:
+      unsigned int width, height, humans, TILE_SIZE;
+      SpriteBatch levelBatch;
+      Camera2D *levelCamera;
+      std::vector<std::string> walls;
+      std::vector<Entity*> entities;
 };
 
 #endif // LEVEL_H_INCLUDED
