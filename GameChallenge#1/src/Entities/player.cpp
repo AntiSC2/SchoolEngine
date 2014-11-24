@@ -1,16 +1,19 @@
 #include "player.h"
+#include "game.h"
 
-Player::Player(Level& a) : speed(4.0f) {
-   destRect.x = 64;
-   destRect.y = -128;
-   Game::e.camera->setPosition(glm::vec2(destRect.x, destRect.y));
+Player::Player(int x, int y, Level& a) : speed(4.0f) {
+   destRect.x = x;
+   destRect.y = y;
    destRect.z = 48;
    destRect.w = 48;
    targetE = nullptr;
+   createBullet = false;
+   frames = 0;
 
-   sprite.initSprite(destRect.x, destRect.y, destRect.z, destRect.w, 50, 50, 255, 255, "resources/textures/circle.png");
+   sprite.initSprite(destRect.x, destRect.y, destRect.z, destRect.w, 0, 0, 255, 255, "resources/textures/circle.png");
    this->a = &a;
 }
+
 
 Player::~Player() {
    ;
@@ -36,8 +39,20 @@ void Player::update() {
    if(Input::keyPressed(SDL_SCANCODE_D)) {
       destRect.x += speed;
    }
+   if(Input::getMouseButton() == 1) {
+      if(createBullet == false) {
+         createBullet = true;
+         a->addBullet(destRect);
+      }
+   }
    a->checkWalls(destRect);
-
+   if(createBullet == true) {
+      if(frames == 15) {
+         frames = 0;
+         createBullet = false;
+      }
+      frames++;
+   }
    sprite.updatePosition(destRect.x, destRect.y + 16);
    glm::vec2 temp;
    temp.x = destRect.x + 24;

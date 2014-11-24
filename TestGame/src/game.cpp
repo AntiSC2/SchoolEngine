@@ -22,7 +22,6 @@ void Game::init() {
    e.initScreen(1280, 720, "Test Game");
    e.initResources("resources/data/Game.data");
    e.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
-   e.initLevels("resources/data/Level.data");
 
    player = new Player;
 }

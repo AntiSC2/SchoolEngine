@@ -8,7 +8,7 @@ Human::Human(int x, int y, Level& a) {
    destRect.w = 48;
    frames = 0;
    targetE = nullptr;
-   speed = 4.0f;
+   speed = 2.0f;
    this->a = &a;
    direction.x = rand() % this->a->getWidth() * 64;
    direction.y = rand() % this->a->getHeight() * 64;
@@ -24,9 +24,9 @@ Human::~Human() {
 
 void Human::update() {
    targetE = a->getEntity(destRect);
-   if(frames == 320) {
+   if(frames == 30) {
       frames = 0;
-      float degrees = rand() % 30;
+      float degrees = rand() % 50;
       if(rand() % 100 < 50) {
          degrees = -(degrees);
       }
@@ -34,7 +34,7 @@ void Human::update() {
    }
 
    destRect += glm::vec4(direction.x, direction.y, 0, 0) * speed;
-   checkEntityCollision(targetE);
+
    if(a->checkWalls(destRect)) {
       float degrees = rand() % 40;
       if(rand() % 100 < 50) {

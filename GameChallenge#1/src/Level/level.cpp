@@ -41,22 +41,22 @@ bool Level::checkWalls(glm::vec4& position) {
       glm::vec4 collisionRects[4];
       for(int i = 0; i < 4; i++) {
          switch(i) {
-            case 0:
-               x[i] = std::floor(position.x / 64);
-               y[i] = std::floor(position.y / 64);
-               break;
-            case 1:
-               x[i] = std::floor((position.x + position.z) / 64);
-               y[i] = std::floor(position.y / 64);
-               break;
-            case 2:
-               x[i] = std::floor((position.x + position.z) / 64);
-               y[i] = std::floor((position.y + position.w) / 64);
-               break;
-            case 3:
-               x[i] = std::floor(position.x / 64);
-               y[i] = std::floor((position.y + position.w) / 64);
-               break;
+         case 0:
+            x[i] = std::floor(position.x / 64);
+            y[i] = std::floor(position.y / 64);
+            break;
+         case 1:
+            x[i] = std::floor((position.x + position.z) / 64);
+            y[i] = std::floor(position.y / 64);
+            break;
+         case 2:
+            x[i] = std::floor((position.x + position.z) / 64);
+            y[i] = std::floor((position.y + position.w) / 64);
+            break;
+         case 3:
+            x[i] = std::floor(position.x / 64);
+            y[i] = std::floor((position.y + position.w) / 64);
+            break;
          }
       }
       for(int i = 0; i < 4; i++) {
@@ -135,23 +135,29 @@ void Level::finishLevel(Camera2D* camera) {
       for(int x = 0; x < width; x++) {
          tileRect.x = x * TILE_SIZE;
          switch(walls[y][x]) {
-            case 'R':
-               levelBatch.draw(tileRect, uvRect, RM::TextureCache->createTexture("resources/textures/red_bricks.png")->getID(), 0.0f, white);
-               break;
-            case 'L':
-               levelBatch.draw(tileRect, uvRect, RM::TextureCache->createTexture("resources/textures/light_bricks.png")->getID(), 0.0f, white);
-               break;
-            case 'G':
-               levelBatch.draw(tileRect, uvRect, RM::TextureCache->createTexture("resources/textures/glass.png")->getID(), 0.0f, white);
-               break;
-            case 'Z': {
-                  Entity* newZombie = new Zombie(tileRect.x, tileRect.y, *this);
-                  entities.push_back(newZombie);
-                  newZombie = nullptr;
-                  break;
-               }
-            default:
-               break;
+         case 'R':
+            levelBatch.draw(tileRect, uvRect, RM::TextureCache->createTexture("resources/textures/red_bricks.png")->getID(), 0.0f, white);
+            break;
+         case 'L':
+            levelBatch.draw(tileRect, uvRect, RM::TextureCache->createTexture("resources/textures/light_bricks.png")->getID(), 0.0f, white);
+            break;
+         case 'G':
+            levelBatch.draw(tileRect, uvRect, RM::TextureCache->createTexture("resources/textures/glass.png")->getID(), 0.0f, white);
+            break;
+         case 'Z': {
+            Entity* newZombie = new Zombie(tileRect.x, tileRect.y, *this);
+            entities.push_back(newZombie);
+            newZombie = nullptr;
+            break;
+         }
+         case '@': {
+            Entity* newPlayer = new Player(tileRect.x, tileRect.y, *this);
+            entities.push_back(newPlayer);
+            newPlayer = nullptr;
+            break;
+         }
+         default:
+            break;
          }
       }
    }
@@ -185,19 +191,33 @@ Entity* Level::getClosestHuman(glm::vec4& destRect) {
    return MIN;
 }
 
-Entity* Level::getEntity(glm::vec4& destRect) {
+Entity* Level::getEntity(const glm::vec4& destRect) {
    Entity* MIN = nullptr;
    glm::vec2 objPos(destRect.x, abs(destRect.y));
 
    float MIN_DISTANCE = 99999.0f;
    for(int i = 0; i < entities.size(); i++) {
-      if(entities[i]->getID() < 3) {
-         glm::vec2 entPos(entities[i]->getPosition().x, abs(entities[i]->getPosition().y));
-         float distance = glm::length(entPos - objPos);
-         if(distance < MIN_DISTANCE && objPos != entPos) {
-            MIN = entities[i];
-            MIN_DISTANCE = distance;
-         }
+      glm::vec2 entPos(entities[i]->getPosition().x, abs(entities[i]->getPosition().y));
+      float distance = glm::length(entPos - objPos);
+      if(distance < MIN_DISTANCE && objPos != entPos) {
+         MIN = entities[i];
+         MIN_DISTANCE = distance;
+      }
+   }
+   return MIN;
+}
+
+Entity* Level::getZombie(const glm::vec4& destRect) {
+   Entity* MIN = nullptr;
+   glm::vec2 objPos(destRect.x, abs(destRect.y));
+
+   float MIN_DISTANCE = 99999.0f;
+   for(int i = 0; i < entities.size(); i++) {
+      glm::vec2 entPos(entities[i]->getPosition().x, abs(entities[i]->getPosition().y));
+      float distance = glm::length(entPos - objPos);
+      if(distance < MIN_DISTANCE && entities[i]->getID() == 3) {
+         MIN = entities[i];
+         MIN_DISTANCE = distance;
       }
    }
    return MIN;
@@ -231,12 +251,42 @@ void Level::update() {
          }
       }
    }
+   for(unsigned int i = 0; i < bullets.size(); i++) {
+      bullets[i].update();
+      bullets[i].targetE = getZombie(bullets[i].getPosition());
+      if(checkWalls(bullets[i].getPosition()) == true) {
+         bullets[i] = bullets.back();
+         bullets.pop_back();
+         i--;
+      } else if(bullets[i].checkEntityCollision(bullets[i].targetE)) {
+         for(unsigned int z = 0; z < entities.size(); z++) {
+            if(entities[z] == bullets[i].targetE) {
+               delete entities[z];
+               entities[z] = entities.back();
+               entities.pop_back();
+               break;
+            }
+         }
+         bullets[i] = bullets.back();
+         bullets.pop_back();
+         i--;
+      }
+   }
 }
 
 void Level::render(SpriteBatch *batch) {
    for(unsigned int i = 0; i < entities.size(); i++) {
       entities[i]->render(batch);
    }
+   for(unsigned int i = 0; i < bullets.size(); i++) {
+      bullets[i].render(batch);
+   }
    levelBatch.renderDraw();
+}
+
+void Level::addBullet(const glm::vec4& destRect) {
+   Bullet* newBullet = new Bullet(destRect.x + (destRect.z / 2 - 4), destRect.y + (destRect.w / 2 + 4), glm::vec2(Input::getMouseX(levelCamera), Input::getMouseY(levelCamera)));
+   bullets.push_back(*newBullet);
+   newBullet = nullptr;
 }
 

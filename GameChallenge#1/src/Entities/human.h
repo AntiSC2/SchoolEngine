@@ -9,19 +9,19 @@
 class Level;
 
 class Human : public Entity {
-   public:
-      Human(int x, int y, Level& a);
-      ~Human();
+public:
+   Human(int x, int y, Level& a);
+   ~Human();
 
-      void update();
-      void render(SpriteBatch *batch);
-      int getID();
-   private:
-      unsigned int frames;
-      Sprite sprite;
-      Level *a;
-      glm::vec2 direction;
-      float speed;
+   void update();
+   void render(SpriteBatch *batch);
+   int getID();
+private:
+   unsigned int frames;
+   Sprite sprite;
+   Level *a;
+   glm::vec2 direction;
+   float speed;
 };
 
 #endif // HUMAN_H_INCLUDED

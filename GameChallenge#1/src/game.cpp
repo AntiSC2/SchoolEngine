@@ -5,7 +5,7 @@ Game::Game() {
 }
 
 Game::~Game() {
-   delete player;
+   ;
 }
 
 Engine Game::e;
@@ -21,7 +21,6 @@ void Game::init() {
    e.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
    e.initResources("resources/data/Game.data");
    loadLevel("resources/data/Level.data", level);
-   player = new Player(level);
 }
 
 void Game::loadLevel(const char* filePath, Level& a) {
@@ -33,7 +32,6 @@ void Game::loadLevel(const char* filePath, Level& a) {
       unsigned int temp;
       fin >> fileLine >> temp;
       a.setHumans(temp);
-
 
       while(std::getline(fin, fileLine)) {
          if(c == 0) {
@@ -86,7 +84,6 @@ void Game::gameLoop() {
 
 void Game::update() {
    e.input->update();
-   player->update();
    level.update();
    e.camera->update();
 }
@@ -96,7 +93,6 @@ void Game::drawGame() {
    e.screen->render();
    e.shaders[0]->setCameraMatrix(e.camera->getCameraMatrix());
    e.TheBatch->begin();
-   player->render(e.TheBatch);
    level.render(e.TheBatch);
    e.TheBatch->end();
    e.TheBatch->renderDraw();
