@@ -10,7 +10,7 @@ Zombie::Zombie(int x, int y, Level& a) {
    target.x = 0.0f;
    target.y = 0.0f;
 
-   speed = 4.0f;
+   speed = 3.0f;
    targetP = nullptr;
 
    sprite.initSprite(destRect.x, destRect.y, destRect.z, destRect.w, 50, 255, 50, 255, "resources/textures/circle.png");

@@ -1,6 +1,6 @@
 #include "level.h"
 
-Level::Level() : width(0), height(0), humans(0), TILE_SIZE(64) {
+Level::Level() : width(0), height(0), humans(0), TILE_SIZE(64), win_state(0) {
    ;
 }
 
@@ -22,6 +22,16 @@ void Level::setHeight(unsigned int y) {
 
 void Level::setHumans(unsigned int humans) {
    this->humans = humans;
+}
+
+void Level::clearLevel() {
+   for(int i = 0; i < entities.size(); i++) {
+      delete entities[i];
+   }
+   entities.clear();
+   walls.clear();
+   bullets.clear();
+   win_state = 0;
 }
 
 unsigned int Level::getWidth() {
@@ -224,7 +234,10 @@ Entity* Level::getZombie(const glm::vec4& destRect) {
 }
 
 void Level::update() {
+   bool win = true;
    for(unsigned int i = 0; i < entities.size(); i++) {
+      if(entities[i]->getID() == 3)
+         win = false;
       if(entities[i]->getPosition().x < 32 || entities[i]->getPosition().y > -32 ||
             entities[i]->getPosition().x > width * 64 - 32 || entities[i]->getPosition().y > -(height * 64 - 64)) {
          delete entities[i];
@@ -271,6 +284,10 @@ void Level::update() {
          bullets.pop_back();
          i--;
       }
+   }
+   if(win == true && win_state == false) {
+      win_state = true;
+      printf("YOU WIN! Score: %d\n", entities.size() - 1);
    }
 }
 

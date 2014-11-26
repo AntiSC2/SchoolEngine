@@ -47,7 +47,7 @@ void Player::update() {
    }
    a->checkWalls(destRect);
    if(createBullet == true) {
-      if(frames == 15) {
+      if(frames == 30) {
          frames = 0;
          createBullet = false;
       }

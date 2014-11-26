@@ -8,7 +8,7 @@ Bullet::Bullet(int x, int y, glm::vec2 direction) {
    destRect.y = y - 48;
 
    sprite.initSprite(destRect.x, destRect.y, destRect.z, destRect.w, 100, 100, 100, 255, "resources/textures/circle.png");
-   speed = 5.0f;
+   speed = 8.0f;
    this->direction = direction - glm::vec2(destRect.x, destRect.y + 48);
    this->direction = glm::normalize(this->direction);
 }

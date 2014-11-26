@@ -28,6 +28,8 @@ public:
    unsigned int getWidth();
    unsigned int getHeight();
 
+   void clearLevel();
+
    bool checkWalls(glm::vec4& position);
    Entity* getClosestHuman(glm::vec4& destRect);
    Entity* getEntity(const glm::vec4& destRect);
@@ -42,6 +44,7 @@ public:
 private:
    unsigned int width, height, humans, TILE_SIZE;
    SpriteBatch levelBatch;
+   bool win_state;
    Camera2D *levelCamera;
    std::vector<std::string> walls;
    std::vector<Entity*> entities;

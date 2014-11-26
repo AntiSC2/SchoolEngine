@@ -25,6 +25,7 @@ void Game::init() {
 
 void Game::loadLevel(const char* filePath, Level& a) {
    std::ifstream fin(filePath);
+   a.clearLevel();
    if(fin.is_open()) {
       std::string fileLine = "";
       unsigned int c = 0;
@@ -74,7 +75,7 @@ void Game::gameLoop() {
       drawGame();
       frames++;
       if(SDL_GetTicks() - seconds > 1000) {
-         printf("Updates: %d\nFrames: %d\nMouse X: %d\nMouse Y: %d\n", updates, frames, Input::getMouseX(e.camera), Input::getMouseY(e.camera));
+         //printf("Updates: %d\nFrames: %d\nMouse X: %d\nMouse Y: %d\n", updates, frames, Input::getMouseX(e.camera), Input::getMouseY(e.camera));
          updates = 0;
          frames = 0;
          seconds = SDL_GetTicks();
@@ -84,6 +85,8 @@ void Game::gameLoop() {
 
 void Game::update() {
    e.input->update();
+   if(Input::keyPressed(SDL_SCANCODE_R))
+      loadLevel("resources/data/Level.data", level);
    level.update();
    e.camera->update();
 }
