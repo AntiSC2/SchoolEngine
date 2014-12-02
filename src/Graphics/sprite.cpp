@@ -20,7 +20,7 @@ void Sprite::initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r
    uvRect.x = 0;
    uvRect.y = 0;
    uvRect.z = 1;
-   uvRect.w = -1;
+   uvRect.w = 1;
 
    color.r = r;
    color.g = g;
@@ -29,7 +29,7 @@ void Sprite::initSprite(GLint xv, GLint yv, GLint width, GLint height, GLubyte r
 }
 
 void Sprite::render(SpriteBatch* batch) {
- batch->draw(destRect, uvRect, tex->getID(), 0, color);
+   batch->draw(destRect, uvRect, tex->getID(), 0, color);
 }
 
 void Sprite::updatePosition(int x, int y) {

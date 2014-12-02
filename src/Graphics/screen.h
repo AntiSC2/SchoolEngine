@@ -10,20 +10,20 @@
 #include <stdio.h>
 
 class Screen {
-   public:
-      Screen(int width, int height, const char* title);
-      ~Screen();
+public:
+   Screen(int width, int height, const char* title);
+   ~Screen();
 
-      void render();
-      void update();
+   void render();
+   void update();
 
-      int getWidth();
-      int getHeight();
+   int getWidth();
+   int getHeight();
 
-   private:
-      int width, height;
-      SDL_Window *window;
-      void initGL();
+private:
+   int width, height;
+   SDL_Window *window;
+   void initGL();
 };
 
 #endif // SCREEN_H_INCLUDED

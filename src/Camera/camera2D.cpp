@@ -21,7 +21,7 @@ void Camera2D::update() {
       glm::vec3 translate(-position.x + width / 2, -position.y + height / 2, 0.0f);
       cameraMatrix = glm::translate(orthoMatrix, translate);
 
-      glm::vec3 Scale(scale, scale, 0.0f);
+      glm::vec3 Scale(scale, -scale, 0.0f);
       cameraMatrix = glm::scale(glm::mat4(1.0f), Scale) * cameraMatrix;
       needUpdate = false;
    }
@@ -35,6 +35,19 @@ void Camera2D::setPosition(glm::vec2 position) {
 void Camera2D::setScale(GLfloat scale) {
    this->scale = scale;
    needUpdate = true;
+}
+
+bool Camera2D::cameraCulling(const glm::vec4& destRect) {
+   glm::vec4 cameraHitBox(position.x - (width / 2), position.y -(height / 2), width, height);
+   if(destRect.x > cameraHitBox.x + cameraHitBox.z)
+      return true;
+   else if(destRect.x + destRect.z < cameraHitBox.x)
+      return true;
+   else if(destRect.y + destRect.w < cameraHitBox.y)
+      return true;
+   else if(destRect.y > cameraHitBox.y + cameraHitBox.w)
+      return true;
+   return false;
 }
 
 glm::vec2 Camera2D::getPosition() {

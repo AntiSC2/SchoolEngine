@@ -7,13 +7,13 @@
 #include "Graphics/texture.h"
 
 class TextureManager {
-   public:
-      TextureManager();
-      ~TextureManager();
+public:
+   TextureManager();
+   ~TextureManager();
 
-      Texture* createTexture(std::string);
-   private:
-      std::map<std::string, Texture*> textures;
+   Texture* createTexture(std::string);
+private:
+   std::map<std::string, Texture*> textures;
 };
 
 #endif // TEXTUREMANAGER_H_INCLUDED

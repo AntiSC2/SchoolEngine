@@ -7,7 +7,32 @@
 #include <algorithm>
 #include "Vertex.h"
 
-struct Glyph {
+class Glyph {
+public:
+   Glyph() {
+      ;
+   }
+   Glyph(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint texture, float depth, const Color &color) {
+      this->depth = depth;
+      this->texture = texture;
+
+      this->bottomLeft.setPosition(destRect.x, destRect.y);
+      this->bottomLeft.setUV(uvRect.x, uvRect.y);
+      this->bottomLeft.setColor(color.r, color.g, color.b, color.a);
+
+      this->bottomRight.setPosition(destRect.x + destRect.z, destRect.y);
+      this->bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
+      this->bottomRight.setColor(color.r, color.g, color.b, color.a);
+
+      this->topLeft.setPosition(destRect.x, destRect.y + destRect.w);
+      this->topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
+      this->topLeft.setColor(color.r, color.g, color.b, color.a);
+
+      this->topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
+      this->topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
+      this->topRight.setColor(color.r, color.g, color.b, color.a);
+   }
+
    GLuint texture;
    float depth;
 
@@ -25,41 +50,42 @@ enum class GlyphSortType {
 };
 
 class RenderBatch {
-   public:
-      RenderBatch(GLuint offSet, GLuint numvertices, GLuint teXture) : offset(offSet), numVertices(numvertices), texture(teXture) {
-         ;
-      }
-      GLuint offset;
-      GLuint numVertices;
-      GLuint texture;
+public:
+   RenderBatch(GLuint offSet, GLuint numvertices, GLuint teXture) : offset(offSet), numVertices(numvertices), texture(teXture) {
+      ;
+   }
+   GLuint offset;
+   GLuint numVertices;
+   GLuint texture;
 };
 
 class SpriteBatch {
-   public:
-      SpriteBatch();
-      ~SpriteBatch();
+public:
+   SpriteBatch();
+   ~SpriteBatch();
 
-      void init();
-      void begin(GlyphSortType sortingType = GlyphSortType::TEXTURE);
-      void end();
-      void draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint texture, float depth, const Color &color);
-      void renderDraw();
+   void init();
+   void begin(GlyphSortType sortingType = GlyphSortType::TEXTURE);
+   void end();
+   void draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint texture, float depth, const Color &color);
+   void renderDraw();
 
-   private:
-      void sortGlyphs();
-      void createRenderBatches();
+private:
+   void sortGlyphs();
+   void createRenderBatches();
 
-      static bool compareFrontToBack(Glyph* a, Glyph* b);
-      static bool compareBackToFront(Glyph* a, Glyph* b);
-      static bool compareTexture(Glyph* a, Glyph* b);
+   static bool compareFrontToBack(Glyph* a, Glyph* b);
+   static bool compareBackToFront(Glyph* a, Glyph* b);
+   static bool compareTexture(Glyph* a, Glyph* b);
 
-      GlyphSortType sortType;
+   GlyphSortType sortType;
 
-      std::vector<Glyph*> Glyphs;
-      std::vector<RenderBatch> RenderBatches;
+   std::vector<Glyph*> GlyphsPointers;
+   std::vector<Glyph> Glyphs;
+   std::vector<RenderBatch> RenderBatches;
 
-      GLuint vboID;
-      GLuint vaoID;
+   GLuint vboID;
+   GLuint vaoID;
 };
 
 

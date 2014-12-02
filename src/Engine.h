@@ -15,26 +15,26 @@
 
 
 class Engine {
-   public:
+public:
 
-      void initSubSystems();
-      void initScreen(int width, int height, const char* title);
-      void initResources(const char* filePath);
-      void initShaders(const char* fileVert, const char* fileFrag);
+   void initSubSystems();
+   void initScreen(int width, int height, const char* title);
+   void initResources(const char* filePath);
+   void initShaders(const char* fileVert, const char* fileFrag);
 
 
-      Screen *screen;
-      Camera2D *camera;
-      Shader **shaders;
-      SpriteBatch *TheBatch;
-      Input *input;
-      /*TEMP*/
-      unsigned int shaderCount;
-      /*TEMP*/
-      Engine();
-      ~Engine();
+   Screen *screen;
+   Camera2D *camera;
+   Shader **shaders;
+   SpriteBatch *TheBatch;
+   Input *input;
+   /*TEMP*/
+   unsigned int shaderCount;
+   /*TEMP*/
+   Engine();
+   ~Engine();
 
-   private:
+private:
 };
 
 #endif // ENGINE_H_INCLUDED

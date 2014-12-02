@@ -28,10 +28,10 @@ void Player::init(int x, int y) {
 void Player::update() {
    targetE = a->getEntity(destRect);
    if(Input::keyPressed(SDL_SCANCODE_W)) {
-      destRect.y += speed;
+      destRect.y -= speed;
    }
    if(Input::keyPressed(SDL_SCANCODE_S)) {
-      destRect.y -= speed;
+      destRect.y += speed;
    }
    if(Input::keyPressed(SDL_SCANCODE_A)) {
       destRect.x -= speed;

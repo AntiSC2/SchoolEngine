@@ -136,7 +136,7 @@ void Level::finishLevel(Camera2D* camera) {
    uvRect.x = 0;
    uvRect.y = 0;
    uvRect.z = 1;
-   uvRect.w = -1;
+   uvRect.w = 1;
    levelBatch.init();
    levelBatch.begin();
    for(int y = 0; y < height; y++) {
@@ -293,10 +293,12 @@ void Level::update() {
 
 void Level::render(SpriteBatch *batch) {
    for(unsigned int i = 0; i < entities.size(); i++) {
-      entities[i]->render(batch);
+      if(!levelCamera->cameraCulling(entities[i]->getPosition() + glm::vec4(0, 16, 0, 0)))
+         entities[i]->render(batch);
    }
    for(unsigned int i = 0; i < bullets.size(); i++) {
-      bullets[i].render(batch);
+      if(!levelCamera->cameraCulling(bullets[i].getPosition() + glm::vec4(0, 16, 0, 0)))
+         bullets[i].render(batch);
    }
    levelBatch.renderDraw();
 }

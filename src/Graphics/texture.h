@@ -7,22 +7,22 @@
 #include <SDL2/SDL_image.h>
 
 class Texture {
-   public:
-      Texture();
-      ~Texture();
+public:
+   Texture();
+   ~Texture();
 
-      void loadTexture(const char* filePath);
+   void loadTexture(const char* filePath);
 
-      void use();
-      void unuse();
+   void use();
+   void unuse();
 
-      GLuint getID();
+   GLuint getID();
 
-      static GLuint currentlyBound;
+   static GLuint currentlyBound;
 
-   private:
-      GLuint width, height;
-      GLuint ID;
+private:
+   GLuint width, height;
+   GLuint ID;
 };
 
 #endif // TEXTURE_H_INCLUDED

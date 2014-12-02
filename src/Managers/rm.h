@@ -5,11 +5,11 @@
 #include <string>
 
 class RM {
-   public:
-      static void init(const char* filePath);
-      static TextureManager* TextureCache;
+public:
+   static void init(const char* filePath);
+   static TextureManager* TextureCache;
 
-   private:
+private:
 };
 
 #endif // RM_H_INCLUDED

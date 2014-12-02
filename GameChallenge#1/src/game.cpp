@@ -75,7 +75,7 @@ void Game::gameLoop() {
       drawGame();
       frames++;
       if(SDL_GetTicks() - seconds > 1000) {
-         //printf("Updates: %d\nFrames: %d\nMouse X: %d\nMouse Y: %d\n", updates, frames, Input::getMouseX(e.camera), Input::getMouseY(e.camera));
+         printf("Updates: %d\nFrames: %d\nMouse X: %d\nMouse Y: %d\n", updates, frames, Input::getMouseX(e.camera), Input::getMouseY(e.camera));
          updates = 0;
          frames = 0;
          seconds = SDL_GetTicks();
