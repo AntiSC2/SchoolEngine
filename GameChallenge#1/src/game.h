@@ -7,6 +7,7 @@
 #include <Engine.h>
 #include <fstream>
 #include <string>
+#include <Graphics/spritefont.h>
 #include "Level/level.h"
 
 class Game {
@@ -24,6 +25,7 @@ private:
    void gameLoop();
    void update();
    void drawGame();
+   SpriteFont* spriteFont;
    Level level;
 };
 

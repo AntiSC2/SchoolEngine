@@ -65,15 +65,15 @@ void SpriteBatch::renderDraw() {
 
 void SpriteBatch::sortGlyphs() {
    switch(sortType) {
-   case GlyphSortType::BACK_TO_FRONT :
-      std::stable_sort(GlyphsPointers.begin(), GlyphsPointers.end(), compareBackToFront);
-      break;
-   case GlyphSortType::FRONT_TO_BACK :
-      std::stable_sort(GlyphsPointers.begin(), GlyphsPointers.end(), compareFrontToBack);
-      break;
-   case GlyphSortType::TEXTURE :
-      std::stable_sort(GlyphsPointers.begin(), GlyphsPointers.end(), compareTexture);
-      break;
+      case GlyphSortType::BACK_TO_FRONT :
+         std::stable_sort(GlyphsPointers.begin(), GlyphsPointers.end(), compareBackToFront);
+         break;
+      case GlyphSortType::FRONT_TO_BACK :
+         std::stable_sort(GlyphsPointers.begin(), GlyphsPointers.end(), compareFrontToBack);
+         break;
+      case GlyphSortType::TEXTURE :
+         std::stable_sort(GlyphsPointers.begin(), GlyphsPointers.end(), compareTexture);
+         break;
    }
 }
 

@@ -4,13 +4,19 @@
 #define GLEW_BUILD
 #endif // GLEW_BUILD
 #include <GL/glew.h>
-#include <glm/common.hpp>
+#include <glm/glm.hpp>
 
 struct Position {
    GLint x, y;
 };
 
 struct Color {
+   Color() {
+      ;
+   }
+   Color(GLubyte R, GLubyte G, GLubyte B, GLubyte A) : r(R), g(G), b(B), a(A) {
+      ;
+   }
    GLubyte r, g, b, a;
 };
 

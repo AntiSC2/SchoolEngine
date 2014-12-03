@@ -14,6 +14,7 @@ Engine::~Engine() {
       delete shaders[i];
    }
    delete[] shaders;
+   TTF_Quit();
    IMG_Quit();
    SDL_Quit();
 }
@@ -23,6 +24,8 @@ void Engine::initSubSystems() {
       printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
    } else if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) {
       printf("SDL_Image could not initialize! IMG Error: %s\n", IMG_GetError());
+   } else if(TTF_Init() != 0) {
+      printf("TTF could not initialize! TTF Error: %s\n", TTF_GetError());
    } else {
       input = new Input;
    }

@@ -17,27 +17,27 @@ bool Input::mg = false;
 void Input::update() {
    while (SDL_PollEvent(&event)) {
       switch (event.type) {
-      case SDL_QUIT:
-         quit = true;
-         break;
-      case SDL_KEYDOWN:
-         keys[event.key.keysym.scancode] = true;
-         break;
-      case SDL_KEYUP:
-         keys[event.key.keysym.scancode] = false;
-         if (!pressedKeys.empty() && std::find(pressedKeys.begin(), pressedKeys.end(), event.key.keysym.scancode) != pressedKeys.end()) {
-            pressedKeys.erase(std::find(pressedKeys.begin(), pressedKeys.end(), event.key.keysym.scancode));
-         }
-         break;
-      case SDL_MOUSEBUTTONDOWN:
-         mb = event.button.button;
-         break;
-      case SDL_MOUSEBUTTONUP:
-         mb = 0;
-         if (!clickedButtons.empty() && std::find(clickedButtons.begin(), clickedButtons.end(), event.button.button) != clickedButtons.end()) {
-            clickedButtons.erase(std::find(clickedButtons.begin(), clickedButtons.end(), event.button.button));
-         }
-         break;
+         case SDL_QUIT:
+            quit = true;
+            break;
+         case SDL_KEYDOWN:
+            keys[event.key.keysym.scancode] = true;
+            break;
+         case SDL_KEYUP:
+            keys[event.key.keysym.scancode] = false;
+            if (!pressedKeys.empty() && std::find(pressedKeys.begin(), pressedKeys.end(), event.key.keysym.scancode) != pressedKeys.end()) {
+               pressedKeys.erase(std::find(pressedKeys.begin(), pressedKeys.end(), event.key.keysym.scancode));
+            }
+            break;
+         case SDL_MOUSEBUTTONDOWN:
+            mb = event.button.button;
+            break;
+         case SDL_MOUSEBUTTONUP:
+            mb = 0;
+            if (!clickedButtons.empty() && std::find(clickedButtons.begin(), clickedButtons.end(), event.button.button) != clickedButtons.end()) {
+               clickedButtons.erase(std::find(clickedButtons.begin(), clickedButtons.end(), event.button.button));
+            }
+            break;
       }
    }
    SDL_GetMouseState(&mx, &my);

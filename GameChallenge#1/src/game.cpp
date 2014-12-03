@@ -1,6 +1,8 @@
 #include "game.h"
+#include <Graphics/vertex.h>
+#include <glm/glm.hpp>
 
-Game::Game() {
+Game::Game() : spriteFont(nullptr) {
    ;
 }
 
@@ -21,6 +23,7 @@ void Game::init() {
    e.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
    e.initResources("resources/data/Game.data");
    loadLevel("resources/data/Level.data", level);
+   spriteFont = new SpriteFont("resources/fonts/font1.ttf", 64);
 }
 
 void Game::loadLevel(const char* filePath, Level& a) {
@@ -81,6 +84,8 @@ void Game::gameLoop() {
          seconds = SDL_GetTicks();
       }
    }
+   spriteFont->dispose();
+   delete spriteFont;
 }
 
 void Game::update() {
@@ -96,6 +101,7 @@ void Game::drawGame() {
    e.screen->render();
    e.shaders[0]->setCameraMatrix(e.camera->getCameraMatrix());
    e.TheBatch->begin();
+   spriteFont->draw(e.TheBatch, "What is love\nWhat are you doing mate", glm::vec2(3500, -1000), glm::vec2(2, 2), 0.0f, Color(255, 255, 255, 255));
    level.render(e.TheBatch);
    e.TheBatch->end();
    e.TheBatch->renderDraw();
