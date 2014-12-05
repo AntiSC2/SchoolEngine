@@ -1,8 +1,10 @@
 #include "game.h"
 #include <Graphics/vertex.h>
+#include <Graphics/spritefont.h>
 #include <glm/glm.hpp>
+#include <exception>
 
-Game::Game() : spriteFont(nullptr) {
+Game::Game() {
    ;
 }
 
@@ -23,7 +25,7 @@ void Game::init() {
    e.initShaders("resources/shaders/Vertex.vert", "resources/shaders/Fragment.frag");
    e.initResources("resources/data/Game.data");
    loadLevel("resources/data/Level.data", level);
-   spriteFont = new SpriteFont("resources/fonts/font1.ttf", 64);
+
 }
 
 void Game::loadLevel(const char* filePath, Level& a) {
@@ -62,6 +64,12 @@ void Game::gameLoop() {
    unsigned int updates = 0;
    unsigned int frames = 0;
    unsigned int seconds = 0;
+   try {
+      _spriteFont = new SpriteFont("resources/fonts/chintzy.ttf", 64, 32, 126);
+   }
+   catch(std::exception &e) {
+      printf("%s", e.what());
+   }
 
    while(!e.input->windowClosed()) {
       newTime = SDL_GetTicks();
@@ -84,8 +92,8 @@ void Game::gameLoop() {
          seconds = SDL_GetTicks();
       }
    }
-   spriteFont->dispose();
-   delete spriteFont;
+   _spriteFont->dispose();
+   delete _spriteFont;
 }
 
 void Game::update() {
@@ -101,7 +109,7 @@ void Game::drawGame() {
    e.screen->render();
    e.shaders[0]->setCameraMatrix(e.camera->getCameraMatrix());
    e.TheBatch->begin();
-   spriteFont->draw(e.TheBatch, "What is love\nWhat are you doing mate", glm::vec2(3500, -1000), glm::vec2(2, 2), 0.0f, Color(255, 255, 255, 255));
+   _spriteFont->draw(e.TheBatch, "What is love\nWhat are you doing mate", glm::vec2(3500, -1000), glm::vec2(2, 2), 0.0f, Color(255, 255, 255, 255));
    level.render(e.TheBatch);
    e.TheBatch->end();
    e.TheBatch->renderDraw();
