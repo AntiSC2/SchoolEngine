@@ -18,11 +18,9 @@ int closestPow2(int i) {
 
 SpriteFont::SpriteFont(const char* font, int size, char cs, char ce) {
    // Initialize SDL_ttf
-   printf("0\n");
    if (!TTF_WasInit()) {
       TTF_Init();
    }
-   printf("1\n");
    TTF_Font* f = TTF_OpenFont(font, size);
    if (f == nullptr) {
       fprintf(stderr, "Failed to open TTF font %s\n", font);
@@ -45,7 +43,6 @@ SpriteFont::SpriteFont(const char* font, int size, char cs, char ce) {
       glyphRects[i].y = 0;
       i++;
    }
-   printf("2\n");
 
    // Find best partitioning of glyphs
    int rows = 1, w, h, bestWidth = 0, bestHeight = 0, area = MAX_TEXTURE_RES * MAX_TEXTURE_RES, bestRows = 0;
@@ -79,7 +76,6 @@ SpriteFont::SpriteFont(const char* font, int size, char cs, char ce) {
          break;
       }
    }
-   printf("3\n");
 
    // Can a bitmap font be made?
    if (!bestPartition) {
@@ -126,8 +122,6 @@ SpriteFont::SpriteFont(const char* font, int size, char cs, char ce) {
       }
       ly += _fontHeight + padding;
    }
-   printf("4\n");
-
    // Draw the unsupported glyph
    int rs = padding - 1;
    int* pureWhiteSquare = new int[rs * rs];
@@ -162,7 +156,6 @@ SpriteFont::SpriteFont(const char* font, int size, char cs, char ce) {
    delete[] glyphRects;
    delete[] bestPartition;
    TTF_CloseFont(f);
-   printf("5\n");
 }
 void SpriteFont::dispose() {
    if (_texID != 0) {

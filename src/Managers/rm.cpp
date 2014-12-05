@@ -33,6 +33,10 @@ void RM::init(const char* filePath) {
             music = true;
          } else if(textures == true) {
             TextureCache->createTexture(fileLine);
+         } else if(sound == true) {
+            SoundCache->createSound(fileLine);
+         } else if(music == true) {
+            MusicCache->createMusic(fileLine);
          }
          c += fileLine.size();
       }
@@ -40,3 +44,5 @@ void RM::init(const char* filePath) {
 }
 
 TextureManager* RM::TextureCache = new TextureManager;
+SoundManager* RM::SoundCache = new SoundManager;
+MusicManager* RM::MusicCache = new MusicManager;
